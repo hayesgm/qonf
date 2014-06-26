@@ -11,7 +11,14 @@ module Qonf
   end
 
   def self.[](item)
-    Figaro.env[item.to_s.upcase] || self.get(:qonf, item.to_s.downcase)
+    # Use Figaro is defined, otherwise ENV, otherwise try to get from `config/qonf.{json,yml}`
+    if defined?(Figaro) && Figaro.env[item.to_s.upcase]
+      return Figaro.env[item.to_s.upcase]
+    elsif ENV[item.to_s.upcase]
+      ENV[item.to_s.upcase]
+    end
+
+    self.get(:qonf, item.to_s.downcase)
   end
 
   def self.get(config, route=[])
