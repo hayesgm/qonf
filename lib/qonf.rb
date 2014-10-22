@@ -57,8 +57,11 @@ module Qonf
       base_path = "#{Qonf::Config.base_dir}/#{config}"
 
       formats={}
-      formats[:yml] = ->(f){ YAML.load(f) } if defined?(YAML)
+
       formats[:json] = ->(f){ JSON(f.read) } if defined?(JSON)
+      formats[:yml] = ->(f){ YAML.load(f) } if defined?(YAML)
+      formats[:yaml] = ->(f){ YAML.load(f) } if defined?(YAML)
+      
       raise "Must include JSON or YAML parser" if formats.keys.count == 0
 
       formats.each do |ext,parser|
