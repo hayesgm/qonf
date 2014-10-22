@@ -1,4 +1,5 @@
 require "qonf/version"
+require 'qonf/railtie' if defined?(Rails)
 
 # A simple module to get information quickly out of config files
 module Qonf
@@ -23,8 +24,6 @@ module Qonf
         self.use_cache = Rails.env != "development"
       end
     end
-
-    load_defaults # load defaults by default
   end
 
   def self.configure(&block)
