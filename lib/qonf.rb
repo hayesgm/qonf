@@ -87,7 +87,7 @@ module Qonf
         end
       end
       
-      raise "Unable to find config for #{config} in #{base_path}/*.{#{formats.keys.join(',')}}" if @@cache[config.to_sym].nil?
+      raise "Unable to find config for #{config} in #{base_path}.{#{formats.keys.join(',')}}" if @@cache[config.to_sym].nil?
     end
     
     return get_route(@@cache[config.to_sym], route)
